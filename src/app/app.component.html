@@ -1,0 +1,61 @@
+<div class="mb-3">
+  {{ teste.value }}
+  {{ teste.errors | json }}
+
+  <input
+    [formControl]="teste"
+    type="text"
+    class="form-control"
+    placeholder="Utilizando form reativo"
+  />
+</div>
+
+<div class="mb-3">
+  <input
+    [(ngModel)]="marcador"
+    type="text"
+    class="form-control"
+    placeholder="Marcador"
+  />
+</div>
+
+<div class="mb-3">
+  <div class="d-flex flex-row mb-3">
+    <input
+      [(ngModel)]="nome"
+      type="text"
+      class="form-control"
+      placeholder="Nome"
+    />
+    <input
+      [(ngModel)]="idade"
+      type="number"
+      class="form-control"
+      placeholder="Idade"
+    />
+    <button
+      [disabled]="!nome || !idade"
+      (click)="adicionar()"
+      type="button"
+      class="btn btn-primary"
+    >
+      Adicionar
+    </button>
+  </div>
+</div>
+
+<ul class="list-group">
+  <li
+    [class.active]="marcador && pessoa.nome.includes(marcador)"
+    *ngFor="let pessoa of pessoas; let i = index"
+    class="list-group-item d-flex justify-content-between align-items-start"
+    [ngClass]="getColor(i)"
+  >
+    {{ pessoa.nome }} - {{ pessoa.idade }} anos
+    <button
+      (click)="remover(pessoa._id)"
+      type="button"
+      class="btn-close"
+    ></button>
+  </li>
+</ul>
